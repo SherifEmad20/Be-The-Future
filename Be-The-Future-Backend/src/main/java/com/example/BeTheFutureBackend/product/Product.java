@@ -12,6 +12,7 @@ import java.util.Optional;
 @Table(name = "Product")
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     private String productName;
     private String description;

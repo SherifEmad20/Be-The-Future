@@ -1,6 +1,7 @@
 package com.example.BeTheFutureBackend.Employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -44,7 +45,7 @@ public class EmployeeController {
 
 
     @PostMapping("/login")
-    public String login(@RequestBody Employee employee) {
+    public ResponseEntity<Employee> login(@RequestBody Employee employee) {
         return employeeModel.login(employee);
     }
 

@@ -1,6 +1,7 @@
 package com.example.BeTheFutureBackend.Employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,7 +17,7 @@ public class EmployeeModel {
     }
 
     public Employee addEmployee(Employee employee) {
-        if (employeeRepository.existsById(employee.getUserName())) {
+        if (employeeRepository.existsById(employee.getUsername())) {
             throw new IllegalStateException("employee already exists");
         }
         return employeeRepository.save(employee);
@@ -39,21 +40,21 @@ public class EmployeeModel {
     }
 
 
-    public String login(Employee employee) {
-        if (employeeRepository.existsById(employee.getUserName()) ||
+    public ResponseEntity<Employee> login(Employee employee) {
+        if (employeeRepository.existsById(employee.getUsername()) ||
                 employeeRepository.existsById(employee.getEmail())) {
-            Employee employee1 = employeeRepository.findById(employee.getUserName()).get();
+            Employee employee1 = employeeRepository.findById(employee.getUsername()).get();
             if (employee1.getPassword().equals(employee.getPassword())) {
-                return "Login successful";
+                return ResponseEntity.ok(employee1);
                 //return true;
             }
         }
-        return "Login failed";
+        return (ResponseEntity<Employee>) ResponseEntity.internalServerError();
         //return false;
     }
 
     public String register(Employee employee) {
-        if (employeeRepository.existsById(employee.getUserName())) {
+        if (employeeRepository.existsById(employee.getUsername())) {
             return "Username already exists";
             //return false;
         }

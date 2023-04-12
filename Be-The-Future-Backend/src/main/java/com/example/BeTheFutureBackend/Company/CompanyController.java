@@ -1,12 +1,10 @@
 package com.example.BeTheFutureBackend.Company;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "company")
+@RequestMapping(path = "api/v1/company")
 @CrossOrigin(origins = "*")
 public class CompanyController {
     private final CompanyModel companyModel;
@@ -15,16 +13,22 @@ public class CompanyController {
         this.companyModel = companyModel;
     }
     //add company
-    public Company addCompany(Company company) {
+
+    @PostMapping("/add_company")
+    public Company addCompany(@RequestBody Company company) {
         return companyModel.addCompany(company);
     }
     //get all companies
+
+    @GetMapping("/getAllCompanies")
     public Iterable<Company> getAllCompanies() {
         return companyModel.getAllCompanies();
     }
     //add manager to company
-    public Boolean addManagerToCompany(String managerName, Long companyid) {
-        return companyModel.addManagerToCompany(managerName, companyid);
+
+    @PutMapping("/addManagerToCompany/{managerName}/{companyID}")
+    public Boolean addManagerToCompany(@PathVariable("managerName") String managerName,@PathVariable("companyID") Long companyID) {
+        return companyModel.addManagerToCompany(managerName, companyID);
     }
 
 

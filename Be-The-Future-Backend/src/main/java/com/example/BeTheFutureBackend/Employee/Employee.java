@@ -11,7 +11,7 @@ import java.util.List;
 public class Employee {
 
     @Id
-    private String userName;
+    private String username;
     private String fullName;
     private String email;
     private String password;
@@ -26,20 +26,20 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String userName, String fullName, String email, String password, String phoneNumber) {
-        this.userName = userName;
+    public Employee(String username, String fullName, String email, String password, String phoneNumber) {
+        this.username = username;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFullName() {
@@ -49,6 +49,7 @@ public class Employee {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
 
     public String getEmail() {
         return email;
