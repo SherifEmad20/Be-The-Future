@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="card">
+        <a class="login">register</a>
+        <div class="inputBox">
+            <input type="text" required="required" [(ngModel)]="employee.username">
+            <span class="user">Username</span>
+        </div>
+
+        <div class="inputBox">
+            <input type="text" required="required" [(ngModel)]="employee.fullName">
+            <span class="user">Full name</span>
+        </div>
+
+        <div class="inputBox">
+            <input type="text" required="required" [(ngModel)]="employee.email">
+            <span class="user">Email</span>
+        </div>
+
+        <div class="inputBox">
+            <input type="password" required="required" [(ngModel)]="employee.password">
+            <span>Password</span>
+        </div>
+
+        <div class="inputBox">
+            <input type="text" required="required" [(ngModel)]="employee.phoneNumber">
+            <span class="user">Phone number</span>
+        </div>
+
+
+        <button class="enter" (click)="onSubmit()">Enter</button>
+
+    </div>
+</div>

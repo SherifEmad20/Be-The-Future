@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="card">
+        <a class="login">Log in</a>
+        <div class="inputBox">
+            <input type="text" required="required" [(ngModel)]="employee.username">
+            <span class="user">Username</span>
+        </div>
+
+        <div class="inputBox">
+            <input type="password" required="required" [(ngModel)]="employee.password">
+            <span>Password</span>
+        </div>
+
+        <button class="enter" (click)="onSubmit()">Enter</button>
+
+    </div>
+</div>
