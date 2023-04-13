@@ -1,18 +1,15 @@
 package com.example.BeTheFutureBackend.Employee;
 
 import com.example.BeTheFutureBackend.Task.Task;
-import com.example.BeTheFutureBackend.User.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "Employee")
-@DiscriminatorValue("employee")
-public class Employee extends User {
+public class Employee {
 
-    //@Id
+    @Id
     private String username;
     private String fullName;
     private String email;
