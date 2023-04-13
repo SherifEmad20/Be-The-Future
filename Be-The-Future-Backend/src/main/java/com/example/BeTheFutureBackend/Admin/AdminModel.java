@@ -1,6 +1,7 @@
 package com.example.BeTheFutureBackend.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,14 +12,14 @@ public class AdminModel {
         this.adminRepository = adminRepository;
     }
     //Search for admin by email and password and return true if found
-    public boolean login(String userName, String password){
+    public ResponseEntity<?> login(String userName, String password){
         Admin admin = adminRepository.findById(userName).orElse(null);
         if(admin != null){
             if(admin.getPassword().equals(password)){
-                return true;
+                return ResponseEntity.ok(admin);
             }
         }
-        return false;
+        return ResponseEntity.badRequest().body("Invalid username or password");
     }
     //add admin
     public Admin addAdmin(Admin admin){

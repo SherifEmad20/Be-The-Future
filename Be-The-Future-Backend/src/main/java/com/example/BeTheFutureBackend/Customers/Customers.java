@@ -11,17 +11,97 @@ import java.util.List;
 public class Customers {
 
     @Id
-    private String customerName;
-    private String customerFullName;
-    private String customerEmail;
-    private String customerPassword;
-    private String customerPhoneNum;
-    private String customerAddress;
-    private String customerCity;
-    private String customerPhoto;
+    private String username;
+    private String fullName;
+    private String email;
+    private String password;
+    private String phoneNumber;
+    private String address;
+    private String city;
+    private String photo;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Product> productList;
+
+
+    public Customers() {
+
+    }
+
+    public Customers(String username, String fullName, String email, String password, String phoneNumber, String address, String city, String photo) {
+        this.username = username;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.photo = photo;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public List<Product> getProductList() {
         return productList;
@@ -31,87 +111,6 @@ public class Customers {
         this.productList = productList;
     }
 
-    public Customers() {
-
-    }
-
-    public Customers(String customerName, String customerEmail, String customerPassword, String customerPhoneNum,
-                     String customerAddress, String customerCity, String customerPhoto) {
-        this.customerName = customerName;
-        this.customerFullName = customerName;
-        this.customerEmail = customerEmail;
-        this.customerPassword = customerPassword;
-        this.customerPhoneNum = customerPhoneNum;
-        this.customerAddress = customerAddress;
-        this.customerCity = customerCity;
-        this.customerPhoto = customerPhoto;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerFullName() {
-        return customerFullName;
-    }
-
-    public void setCustomerFullName(String customerFullName) {
-        this.customerFullName = customerFullName;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public String getCustomerPassword() {
-        return customerPassword;
-    }
-
-    public void setCustomerPassword(String customerPassword) {
-        this.customerPassword = customerPassword;
-    }
-
-    public String getCustomerPhoneNum() {
-        return customerPhoneNum;
-    }
-
-    public void setCustomerPhoneNum(String customerPhoneNum) {
-        this.customerPhoneNum = customerPhoneNum;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
-    public String getCustomerCity() {
-        return customerCity;
-    }
-
-    public void setCustomerCity(String customerCity) {
-        this.customerCity = customerCity;
-    }
-
-    public String getCustomerPhoto() {
-        return customerPhoto;
-    }
-
-    public void setCustomerPhoto(String customerPhoto) {
-        this.customerPhoto = customerPhoto;
-    }
-
-    //add product to customer
     public void addProduct(Product product) {
         productList.add(product);
         product.setCustomer(this);

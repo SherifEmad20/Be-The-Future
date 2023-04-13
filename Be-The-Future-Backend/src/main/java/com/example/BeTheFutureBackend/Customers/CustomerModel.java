@@ -1,5 +1,7 @@
 package com.example.BeTheFutureBackend.Customers;
 
+import com.example.BeTheFutureBackend.Employee.Employee;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,33 +13,24 @@ public class CustomerModel {
     }
 
     public Customers addCustomer(Customers customers) {
-        if (customerRepository.findById(customers.getCustomerName()).isPresent()) {
+        if (customerRepository.existsById(customers.getUsername())) {
             throw new IllegalStateException("Customer already exists");
         }
         return customerRepository.save(customers);
     }
 
     public void deleteCustomer(String customerName) {
-        if (!customerRepository.findById(customerName).isPresent()) {
+        if (customerRepository.existsById(customerName)) {
             throw new IllegalStateException("Customer does not exist");
         }
         customerRepository.deleteById(customerName);
     }
 
-    public Customers updateCustomer(Customers customers) {
-        if (!customerRepository.findById(customers.getCustomerName()).isPresent()) {
+    public Customers updateCustomer(Customers customer) {
+        if (customerRepository.existsById(customer.getUsername())) {
             throw new IllegalStateException("Customer does not exist");
         }
-        Customers customers1 = customerRepository.findById(customers.getCustomerName()).get();
-        customers1.setCustomerName(customers.getCustomerName());
-        customers1.setCustomerPassword(customers.getCustomerPassword());
-        customers1.setCustomerEmail(customers.getCustomerEmail());
-        customers1.setCustomerPhoneNum(customers.getCustomerPhoneNum());
-        customers1.setCustomerAddress(customers.getCustomerAddress());
-        customers1.setCustomerCity(customers.getCustomerCity());
-        customers1.setCustomerPhoto(customers.getCustomerPhoto());
-        customers1.setCustomerFullName(customers.getCustomerFullName());
-        return customerRepository.save(customers1);
+        return customerRepository.save(customer);
 
     }
 
@@ -49,23 +42,25 @@ public class CustomerModel {
         return customerRepository.findAll();
     }
 
-    public String register(Customers customers) {
-        if (customerRepository.existsById(customers.getCustomerName())) {
-            return ("Customer already exists");
+    public Customers register(Customers customers) {
+        if (customerRepository.existsById(customers.getUsername())) {
+            throw new IllegalStateException("Customer already exists");
         }
-        customerRepository.save(customers);
-        return ("Customer added successfully");
+        return customerRepository.save(customers);
     }
 
-    public Customers login(Customers customers) {
-        if (!customerRepository.findById(customers.getCustomerName()).isPresent()) {
-            throw new IllegalStateException("Customer does not exist");
+    public ResponseEntity<?> login(Customers customer) {
+        if (customerRepository.existsById(customer.getUsername()) ||
+                customerRepository.existsById(customer.getEmail())) {
+            Customers customer1 = customerRepository.findById(customer.getUsername()).get();
+            if (customer1.getPassword().equals(customer.getPassword())) {
+                return ResponseEntity.ok(customer1);
+                //return true;
+            }
         }
-        Customers customers1 = customerRepository.findById(customers.getCustomerName()).get();
-        if (!customers1.getCustomerPassword().equals(customers.getCustomerPassword())) {
-            throw new IllegalStateException("Wrong password");
-        }
-        return customers1;
+        return ResponseEntity.badRequest().body("Invalid username or password");
+        //return false;
+        //return false;
     }
 
 

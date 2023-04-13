@@ -32,7 +32,7 @@ public class EmployeeModel {
     }
 
     public void deleteEmployee(String userName) {
-        employeeRepository.findById(userName);
+        employeeRepository.deleteById(userName);
     }
 
     public Employee updateEmployee(Employee employee) {
@@ -40,7 +40,7 @@ public class EmployeeModel {
     }
 
 
-    public ResponseEntity<Employee> login(Employee employee) {
+    public ResponseEntity<?> login(Employee employee) {
         if (employeeRepository.existsById(employee.getUsername()) ||
                 employeeRepository.existsById(employee.getEmail())) {
             Employee employee1 = employeeRepository.findById(employee.getUsername()).get();
@@ -49,7 +49,7 @@ public class EmployeeModel {
                 //return true;
             }
         }
-        return (ResponseEntity<Employee>) ResponseEntity.internalServerError();
+        return ResponseEntity.badRequest().body("Invalid username or password");
         //return false;
     }
 

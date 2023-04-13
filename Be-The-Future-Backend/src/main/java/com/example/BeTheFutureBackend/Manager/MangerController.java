@@ -2,6 +2,7 @@ package com.example.BeTheFutureBackend.Manager;
 
 import com.example.BeTheFutureBackend.Task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,8 +23,8 @@ public class MangerController {
     }
 
     //sign in
-    @GetMapping(path = "login")
-    public Manager logIn(@RequestBody Manager manager) {
+    @PostMapping(path = "login")
+    public ResponseEntity<?> logIn(@RequestBody Manager manager) {
         return managerModel.managerExists(manager);
     }
 

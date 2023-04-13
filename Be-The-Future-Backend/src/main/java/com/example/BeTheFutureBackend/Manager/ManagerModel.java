@@ -6,6 +6,7 @@ import com.example.BeTheFutureBackend.Employee.EmployeeRepository;
 import com.example.BeTheFutureBackend.Task.Task;
 import com.example.BeTheFutureBackend.Task.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -32,17 +33,17 @@ public class ManagerModel {
     }
 
     //search if the manager exists for login
-    public Manager managerExists(Manager manager) {
+    public ResponseEntity<?> managerExists(Manager manager) {
         //check if manager exists by user name or email and password
         Iterable<Manager> managers = managerRepository.findAll();
         for (Manager m : managers) {
             if (m.getUserName().equals(manager.getUserName()) || m.getEmail().equals(manager.getEmail())) {
                 if (m.getPassword().equals(manager.getPassword())) {
-                    return m;
+                    return ResponseEntity.ok(m);
                 }
             }
         }
-        return null;
+        return ResponseEntity.badRequest().body("Invalid username or password");
     }
 
     public Optional<Manager> getManager(String userName) {

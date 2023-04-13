@@ -1,10 +1,8 @@
 package com.example.BeTheFutureBackend.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/admin")
@@ -18,17 +16,17 @@ public class AdminController {
     }
 
     //sign in
-    @RequestMapping(path = "login")
-    public boolean logIn(@RequestBody Admin admin) {
+    @PostMapping(path = "login")
+    public ResponseEntity<?> logIn(@RequestBody Admin admin) {
         return adminModel.login(admin.getUserName(),admin.getPassword());
     }
 
-    @RequestMapping(path = "addAdmin")
+    @PostMapping(path = "addAdmin")
     public Admin addAdmin(@RequestBody Admin admin) {
         return adminModel.addAdmin(admin);
     }
 
-    @RequestMapping(path = "getAllAdmins")
+    @GetMapping(path = "getAllAdmins")
     public Iterable<Admin> getAllAdmins() {
         return adminModel.getAllAdmins();
     }

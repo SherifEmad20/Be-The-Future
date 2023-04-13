@@ -1,6 +1,7 @@
 package com.example.BeTheFutureBackend.Customers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,12 +31,12 @@ public class CustomerController {
     }
 
     @PostMapping(path = "register")
-    public String register(@RequestBody Customers customers) {
+    public Customers register(@RequestBody Customers customers) {
         return customerModel.register(customers);
     }
 
-    @GetMapping("/login")
-    public Customers login(@RequestBody Customers customers) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Customers customers) {
         return customerModel.login(customers);
     }
 
