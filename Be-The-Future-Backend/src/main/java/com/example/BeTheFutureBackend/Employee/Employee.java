@@ -1,6 +1,7 @@
 package com.example.BeTheFutureBackend.Employee;
 
 import com.example.BeTheFutureBackend.Task.Task;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
