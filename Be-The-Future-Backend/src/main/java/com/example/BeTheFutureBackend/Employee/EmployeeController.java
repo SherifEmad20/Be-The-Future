@@ -18,11 +18,6 @@ public class EmployeeController {
         this.employeeModel = employeeModel;
     }
 
-    @PostMapping("/addEmployee")
-    public void addEmployee(@RequestBody Employee employee) {
-        employeeModel.addEmployee(employee);
-    }
-
     @GetMapping("/getEmployee/{userName}")
     public Optional<Employee> getEmployee(@PathVariable("userName") String userName) {
         return employeeModel.getEmployee(userName);
@@ -44,15 +39,6 @@ public class EmployeeController {
     }
 
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Employee employee) {
-        return employeeModel.login(employee);
-    }
-
-    @PostMapping("/register")
-    public String register(@RequestBody Employee employee) {
-        return employeeModel.register(employee);
-    }
 
 
 }

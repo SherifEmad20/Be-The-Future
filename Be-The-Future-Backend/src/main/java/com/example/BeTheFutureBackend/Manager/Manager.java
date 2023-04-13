@@ -16,6 +16,8 @@ public class Manager {
     private String phone;
 
     private String Photo;
+
+    private final String role = "manager";
     @ManyToOne//many managers can belong to one company
     @JoinColumn(name = "company_id")
     private Company company;
@@ -94,4 +96,7 @@ public class Manager {
         this.phone = phone;
     }
 
+    public String getRole() {
+        return role;
+    }
 }

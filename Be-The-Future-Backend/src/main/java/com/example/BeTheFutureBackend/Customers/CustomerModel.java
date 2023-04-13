@@ -42,11 +42,11 @@ public class CustomerModel {
         return customerRepository.findAll();
     }
 
-    public Customers register(Customers customers) {
+    public ResponseEntity<?> register(Customers customers) {
         if (customerRepository.existsById(customers.getUsername())) {
             throw new IllegalStateException("Customer already exists");
         }
-        return customerRepository.save(customers);
+        return ResponseEntity.ok(customerRepository.save(customers));
     }
 
     public ResponseEntity<?> login(Customers customer) {
@@ -54,6 +54,19 @@ public class CustomerModel {
                 customerRepository.existsById(customer.getEmail())) {
             Customers customer1 = customerRepository.findById(customer.getUsername()).get();
             if (customer1.getPassword().equals(customer.getPassword())) {
+                return ResponseEntity.ok(customer1);
+                //return true;
+            }
+        }
+        return ResponseEntity.badRequest().body("Invalid username or password");
+        //return false;
+        //return false;
+    }
+    //log in using username and password
+    public ResponseEntity<?> login(String username, String password) {
+        if (customerRepository.existsById(username)) {
+            Customers customer1 = customerRepository.findById(username ).get();
+            if (customer1.getPassword().equals(password)) {
                 return ResponseEntity.ok(customer1);
                 //return true;
             }

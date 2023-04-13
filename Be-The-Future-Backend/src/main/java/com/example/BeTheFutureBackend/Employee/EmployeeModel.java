@@ -16,11 +16,14 @@ public class EmployeeModel {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee addEmployee(Employee employee) {
-        if (employeeRepository.existsById(employee.getUsername())) {
-            throw new IllegalStateException("employee already exists");
+    public ResponseEntity<?> register(Employee employee) {
+        if (employeeRepository.existsById(employee.getUserName())) {
+            throw new IllegalStateException("username already exists");
         }
-        return employeeRepository.save(employee);
+        if (employeeRepository.existsById(employee.getEmail())) {
+            throw new IllegalStateException("email already exists");
+        }
+        return ResponseEntity.ok(employeeRepository.save(employee));
     }
 
     public Optional<Employee> getEmployee(String userName) {
@@ -41,9 +44,9 @@ public class EmployeeModel {
 
 
     public ResponseEntity<?> login(Employee employee) {
-        if (employeeRepository.existsById(employee.getUsername()) ||
+        if (employeeRepository.existsById(employee.getUserName()) ||
                 employeeRepository.existsById(employee.getEmail())) {
-            Employee employee1 = employeeRepository.findById(employee.getUsername()).get();
+            Employee employee1 = employeeRepository.findById(employee.getUserName()).get();
             if (employee1.getPassword().equals(employee.getPassword())) {
                 return ResponseEntity.ok(employee1);
                 //return true;
@@ -52,14 +55,17 @@ public class EmployeeModel {
         return ResponseEntity.badRequest().body("Invalid username or password");
         //return false;
     }
-
-    public String register(Employee employee) {
-        if (employeeRepository.existsById(employee.getUsername())) {
-            return "Username already exists";
-            //return false;
+    //login with username and password
+    public ResponseEntity<?> login(String username, String password) {
+        if (employeeRepository.existsById(username)) {
+            Employee employee1 = employeeRepository.findById(username).get();
+            if (employee1.getPassword().equals(password)) {
+                return ResponseEntity.ok(employee1);
+                //return true;
+            }
         }
-        employeeRepository.save(employee);
-        return "Successful registration";
-        //return true;
+        return ResponseEntity.badRequest().body("Invalid username or password");
+        //return false;
     }
+
 }

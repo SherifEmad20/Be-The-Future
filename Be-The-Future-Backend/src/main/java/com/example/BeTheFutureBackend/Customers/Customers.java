@@ -11,7 +11,7 @@ import java.util.List;
 public class Customers {
 
     @Id
-    private String username;
+    private String userName;
     private String fullName;
     private String email;
     private String password;
@@ -19,6 +19,7 @@ public class Customers {
     private String address;
     private String city;
     private String photo;
+    private final String role = "customer";
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Product> productList;
@@ -28,8 +29,8 @@ public class Customers {
 
     }
 
-    public Customers(String username, String fullName, String email, String password, String phoneNumber, String address, String city, String photo) {
-        this.username = username;
+    public Customers(String userName, String fullName, String email, String password, String phoneNumber, String address, String city, String photo) {
+        this.userName = userName;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -40,11 +41,11 @@ public class Customers {
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 
     public String getFullName() {
@@ -114,5 +115,9 @@ public class Customers {
     public void addProduct(Product product) {
         productList.add(product);
         product.setCustomer(this);
+    }
+
+    public String getRole() {
+        return role;
     }
 }

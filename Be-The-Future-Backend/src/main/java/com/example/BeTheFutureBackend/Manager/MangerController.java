@@ -16,18 +16,6 @@ public class MangerController {
         this.managerModel = managerModel;
     }
 
-    @PostMapping(path = "register")
-    public Manager addManager(@RequestBody Manager manager) {
-        System.out.println(manager);
-        return managerModel.addManager(manager);
-    }
-
-    //sign in
-    @PostMapping(path = "login")
-    public ResponseEntity<?> logIn(@RequestBody Manager manager) {
-        return managerModel.managerExists(manager);
-    }
-
     @PutMapping(path = "update")
     public Manager updateManager(@RequestBody Manager manager) {
         return managerModel.updateManager(manager);

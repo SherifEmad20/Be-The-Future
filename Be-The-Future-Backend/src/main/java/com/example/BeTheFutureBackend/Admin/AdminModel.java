@@ -22,8 +22,11 @@ public class AdminModel {
         return ResponseEntity.badRequest().body("Invalid username or password");
     }
     //add admin
-    public Admin addAdmin(Admin admin){
-        return adminRepository.save(admin);
+    public ResponseEntity<?> register(Admin admin){
+        if(adminRepository.existsById(admin.getUserName())){
+            return ResponseEntity.badRequest().body("Admin already exists");
+        }
+        return ResponseEntity.ok(adminRepository.save(admin));
     }
     //get all admins
     public Iterable<Admin> getAllAdmins(){

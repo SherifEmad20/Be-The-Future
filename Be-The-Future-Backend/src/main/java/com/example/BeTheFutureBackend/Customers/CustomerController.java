@@ -15,11 +15,6 @@ public class CustomerController {
         this.customerModel = customerModel;
     }
 
-    @PostMapping("/add_customer")
-    public Customers addCustomer(@RequestBody Customers customers) {
-        return customerModel.addCustomer(customers);
-    }
-
     @GetMapping("/getAllCustomers")
     public Iterable<Customers> getAllCustomers() {
         return customerModel.getAllCustomers();
@@ -28,16 +23,6 @@ public class CustomerController {
     @GetMapping("/getCustomerById/{id}")
     public Customers getCustomerById(@PathVariable("id") String CustomerName) {
         return customerModel.getCustomer(CustomerName);
-    }
-
-    @PostMapping(path = "register")
-    public Customers register(@RequestBody Customers customers) {
-        return customerModel.register(customers);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Customers customers) {
-        return customerModel.login(customers);
     }
 
     @DeleteMapping("/deleteCustomer/{id}")

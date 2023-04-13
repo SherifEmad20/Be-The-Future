@@ -11,13 +11,14 @@ import java.util.List;
 public class Employee {
 
     @Id
-    private String username;
+    private String userName;
     private String fullName;
     private String email;
     private String password;
     private String phoneNumber;
     private String Photo;
     private int workingHours;
+    private final String role = "employee";
 
     //add array of tasks to employee
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
@@ -26,20 +27,20 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String username, String fullName, String email, String password, String phoneNumber) {
-        this.username = username;
+    public Employee(String userName, String fullName, String email, String password, String phoneNumber) {
+        this.userName = userName;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFullName() {
@@ -98,5 +99,9 @@ public class Employee {
 
     public void setWorkingHours(int workingHours) {
         this.workingHours = workingHours;
+    }
+
+    public String getRole() {
+        return role;
     }
 }

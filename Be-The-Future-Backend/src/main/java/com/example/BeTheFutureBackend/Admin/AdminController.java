@@ -15,16 +15,6 @@ public class AdminController {
         this.adminModel = adminModel;
     }
 
-    //sign in
-    @PostMapping(path = "login")
-    public ResponseEntity<?> logIn(@RequestBody Admin admin) {
-        return adminModel.login(admin.getUserName(),admin.getPassword());
-    }
-
-    @PostMapping(path = "addAdmin")
-    public Admin addAdmin(@RequestBody Admin admin) {
-        return adminModel.addAdmin(admin);
-    }
 
     @GetMapping(path = "getAllAdmins")
     public Iterable<Admin> getAllAdmins() {

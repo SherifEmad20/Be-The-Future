@@ -24,16 +24,18 @@ public class ManagerModel {
         this.taskRepository = taskRepository;
     }
 
-    public Manager addManager(Manager manager) {
-        //check if manager exists
+    public ResponseEntity<?> register(Manager manager) {
         if (managerRepository.existsById(manager.getUserName())) {
-            throw new IllegalStateException("manager already exists");
+            throw new IllegalStateException("username already exists");
         }
-        return managerRepository.save(manager);
+        if (managerRepository.existsById(manager.getEmail())) {
+            throw new IllegalStateException("email already exists");
+        }
+        return ResponseEntity.ok(managerRepository.save(manager));
     }
 
     //search if the manager exists for login
-    public ResponseEntity<?> managerExists(Manager manager) {
+    public ResponseEntity<?> login(Manager manager) {
         //check if manager exists by user name or email and password
         Iterable<Manager> managers = managerRepository.findAll();
         for (Manager m : managers) {
@@ -41,6 +43,16 @@ public class ManagerModel {
                 if (m.getPassword().equals(manager.getPassword())) {
                     return ResponseEntity.ok(m);
                 }
+            }
+        }
+        return ResponseEntity.badRequest().body("Invalid username or password");
+    }
+    //login with username and password
+    public ResponseEntity<?> login(String username, String password) {
+        if (managerRepository.existsById(username)) {
+            Manager manager1 = managerRepository.findById(username).get();
+            if (manager1.getPassword().equals(password)) {
+                return ResponseEntity.ok(manager1);
             }
         }
         return ResponseEntity.badRequest().body("Invalid username or password");
