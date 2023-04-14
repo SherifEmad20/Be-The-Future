@@ -2,6 +2,7 @@ package com.example.BeTheFutureBackend.Users;
 
 import com.example.BeTheFutureBackend.Company.Company;
 import com.example.BeTheFutureBackend.Role.Role;
+import com.example.BeTheFutureBackend.Task.Task;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +35,12 @@ public class User implements UserDetails {
     private String city;
     private String photo;
 
+    @ManyToOne//many managers can belong to one company
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<Task> taskList;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -72,7 +79,10 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
+    //add task to employee
+    public void addTask(Task task) {
+        taskList.add(task);
+    }
 
 
 

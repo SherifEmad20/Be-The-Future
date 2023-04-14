@@ -1,6 +1,5 @@
 package com.example.BeTheFutureBackend.Customers;
 
-import com.example.BeTheFutureBackend.Employee.Employee;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
