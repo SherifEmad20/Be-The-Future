@@ -21,6 +21,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        //request.setRole(Role.ROLE_USER);
+        if (request.getRole() == null) {
+            request.setRole(Role.ROLE_USER);
+        }
         var user = User.builder()
                 .username(request.getUsername())
                 .firstName(request.getFirstName())
@@ -32,7 +36,7 @@ public class AuthenticationService {
                 .address(request.getAddress())
                 .city(request.getCity())
                 .photo(request.getPhoto())
-                .role(Role.ROLE_USER)
+                .role(request.getRole())
                 .build();
         userRepository.save(user);
 
@@ -60,5 +64,13 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public String getRole(String userName) {
+        var user = userRepository.findByUsername(userName);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user.getRole().toString();
     }
 }
