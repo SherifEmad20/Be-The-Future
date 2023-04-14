@@ -23,11 +23,17 @@ public class Course {
 
     private String photo;
 
+    String photo;
+
     public Course() {
     }
 
+<<<<<<< HEAD
     public Course(String courseId, String courseName, int numberOfVotes, boolean isApproved, int numberOfApproved,
                   int numberOfDisapproved, String photo) {
+=======
+    public Course(String courseId, String courseName, int numberOfVotes, boolean isApproved, int numberOfApproved, int numberOfDisapproved, String photo) {
+>>>>>>> finalJwt
         this.courseId = courseId;
         this.courseName = courseName;
         this.numberOfVotes = numberOfVotes;
