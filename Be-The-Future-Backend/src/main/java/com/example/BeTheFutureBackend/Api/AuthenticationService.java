@@ -21,6 +21,9 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        if (request.getRole() == null) {
+            request.setRole(Role.ROLE_USER);
+        }
         var user = User.builder()
                 .username(request.getUsername())
                 .firstName(request.getFirstName())
@@ -32,7 +35,7 @@ public class AuthenticationService {
                 .address(request.getAddress())
                 .city(request.getCity())
                 .photo(request.getPhoto())
-                .role(Role.ROLE_USER)
+                .role(request.getRole())
                 .build();
         userRepository.save(user);
 
@@ -51,7 +54,8 @@ public class AuthenticationService {
                 )
         );
 
-        var user = userRepository.findByUsername(request.getUsername());
+        var user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
@@ -61,4 +65,5 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
 }

@@ -22,12 +22,9 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> {
-            if (userRepository.findByUsername(username) == null) {
-                throw new UsernameNotFoundException("User not found");
-            }
-            return userRepository.findByUsername(username);
-        };
+        return username ->userRepository.findByUsername(username)
+                .map(UserDetails.class::cast)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Bean
