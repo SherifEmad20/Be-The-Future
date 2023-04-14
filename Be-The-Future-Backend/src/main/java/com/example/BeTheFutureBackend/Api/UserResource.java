@@ -31,10 +31,6 @@ public class UserResource {
         return ResponseEntity.ok(authenticationService.login(request));
     }
 
-    @GetMapping("/role/{userName}")
-    public ResponseEntity<String> getRole(@PathVariable("userName") String userName) {
-        return ResponseEntity.ok().body(authenticationService.getRole(userName));
-    }
 
 
 }

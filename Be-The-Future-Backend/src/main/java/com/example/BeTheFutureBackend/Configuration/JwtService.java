@@ -1,5 +1,7 @@
 package com.example.BeTheFutureBackend.Configuration;
 
+import com.example.BeTheFutureBackend.Users.User;
+import com.example.BeTheFutureBackend.Users.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,7 +19,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String secretKey = "68566D597133743677397A24432646294A404E635166546A576E5A7234753778";
+    private static final String SECRET_KEY = "68566D597133743677397A24432646294A404E635166546A576E5A7234753778";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -32,10 +34,18 @@ public class JwtService {
         return generateToken(new HashMap<>(), userDetails);
     }
 
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return Jwts.builder()
+    public String generateToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails) {
+        //get User from UserDetails
+
+        User user = (User) userDetails;
+        return Jwts
+                .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
+                .claim("role", user.getRole().toString())
+                .claim("Email", user.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
@@ -56,6 +66,7 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
+        // Extract the token from the header aftea the word "Bearer "
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
@@ -63,8 +74,10 @@ public class JwtService {
                 .getBody();
     }
 
+    // singin key is used to sign the jwt token to ensure that the token is not tampered with during the transmission
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

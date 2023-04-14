@@ -21,7 +21,6 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        //request.setRole(Role.ROLE_USER);
         if (request.getRole() == null) {
             request.setRole(Role.ROLE_USER);
         }
@@ -55,7 +54,8 @@ public class AuthenticationService {
                 )
         );
 
-        var user = userRepository.findByUsername(request.getUsername());
+        var user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
@@ -64,13 +64,5 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
-    }
-
-    public String getRole(String userName) {
-        var user = userRepository.findByUsername(userName);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-        return user.getRole().toString();
     }
 }
