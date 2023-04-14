@@ -21,16 +21,19 @@ public class Course {
 
     int numberOfDisapproved = 0;
 
+    String photo;
+
     public Course() {
     }
 
-    public Course(String courseId, String courseName, int numberOfVotes, boolean isApproved, int numberOfApproved, int numberOfDisapproved) {
+    public Course(String courseId, String courseName, int numberOfVotes, boolean isApproved, int numberOfApproved, int numberOfDisapproved, String photo) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.numberOfVotes = numberOfVotes;
         this.isApproved = isApproved;
         this.numberOfApproved = numberOfApproved;
         this.numberOfDisapproved = numberOfDisapproved;
+        this.photo = photo;
     }
 
     public String getCourseId() {
@@ -81,4 +84,11 @@ public class Course {
         this.numberOfDisapproved = numberOfDisapproved;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }
