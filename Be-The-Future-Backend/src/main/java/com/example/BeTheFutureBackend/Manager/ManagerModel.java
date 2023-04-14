@@ -1,102 +1,61 @@
 package com.example.BeTheFutureBackend.Manager;
 
 import com.example.BeTheFutureBackend.Company.Company;
-import com.example.BeTheFutureBackend.Employee.Employee;
-import com.example.BeTheFutureBackend.Employee.EmployeeRepository;
+import com.example.BeTheFutureBackend.Role.Role;
 import com.example.BeTheFutureBackend.Task.Task;
 import com.example.BeTheFutureBackend.Task.TaskRepository;
+import com.example.BeTheFutureBackend.Users.User;
+import com.example.BeTheFutureBackend.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
 public class ManagerModel {
-    private final ManagerRepository managerRepository;
-    private final EmployeeRepository employeeRepository;
+    private final UserRepository userRepository;
     private final TaskRepository taskRepository;
 
     @Autowired
-    public ManagerModel(ManagerRepository managerRepository, EmployeeRepository employeeRepository, TaskRepository taskRepository) {
-        this.managerRepository = managerRepository;
-        this.employeeRepository = employeeRepository;
+    public ManagerModel(UserRepository userRepository,  TaskRepository taskRepository) {
+        this.userRepository = userRepository;
         this.taskRepository = taskRepository;
     }
 
-    public ResponseEntity<?> register(Manager manager) {
-        if (managerRepository.existsById(manager.getUserName())) {
-            throw new IllegalStateException("username already exists");
-        }
-        if (managerRepository.existsById(manager.getEmail())) {
-            throw new IllegalStateException("email already exists");
-        }
-        return ResponseEntity.ok(managerRepository.save(manager));
-    }
-
-    //search if the manager exists for login
-    public ResponseEntity<?> login(Manager manager) {
-        //check if manager exists by user name or email and password
-        Iterable<Manager> managers = managerRepository.findAll();
-        for (Manager m : managers) {
-            if (m.getUserName().equals(manager.getUserName()) || m.getEmail().equals(manager.getEmail())) {
-                if (m.getPassword().equals(manager.getPassword())) {
-                    return ResponseEntity.ok(m);
-                }
-            }
-        }
-        return ResponseEntity.badRequest().body("Invalid username or password");
-    }
-    //login with username and password
-    public ResponseEntity<?> login(String username, String password) {
-        if (managerRepository.existsById(username)) {
-            Manager manager1 = managerRepository.findById(username).get();
-            if (manager1.getPassword().equals(password)) {
-                return ResponseEntity.ok(manager1);
-            }
-        }
-        return ResponseEntity.badRequest().body("Invalid username or password");
-    }
-
-    public Optional<Manager> getManager(String userName) {
-        return managerRepository.findById(userName);
-    }
-
-    public Manager getManagerByEmail(String email) {
-        return managerRepository.findByEmail(email);
-    }
-
-    public Manager getManagerByPhone(String phone) {
-        return managerRepository.findByPhone(phone);
+    public Optional<User> getManager(String userName) {
+        //get
+        return userRepository.findByUsername(userName);
     }
 
     //get all managers
-    public Iterable<Manager> getAllManagers() {
-        return managerRepository.findAll();
-    }
+    public Iterable<User> getAllManagers() {
+        Iterable<User> users=userRepository.findAll();
+        //retur onle users with role admin
+        ArrayList<User> managers=new ArrayList<>();
+        for (User user:users) {
+            if(user.getRole().equals((Role.ROLE_MANAGER))){
+                managers.add(user);
+            }
+        }
 
-    public void deleteManager(String userName) {
-        managerRepository.deleteById(userName);
-    }
-
-    public Manager updateManager(Manager manager) {
-        return managerRepository.save(manager);
+        return managers;
     }
 
     //add company to manager
-    public void addCompanyToManager(Manager manager, Company company) {
+    public void addCompanyToManager(User manager, Company company) {
         manager.setCompany(company);
-        managerRepository.save(manager);
+        userRepository.save(manager);
     }
 
     // add task to employee
     public String addTaskToEmployee(String employeeName, long taskID) {
-        Employee employee = employeeRepository.findById(employeeName).get();
+        User employee = userRepository.findByUsername(employeeName).get();
         Task task = taskRepository.findById(taskID).get();
         employee.addTask(task);
         task.setEmployee(employee);
         taskRepository.save(task);
-        employeeRepository.save(employee);
+        userRepository.save(employee);
         return "Task added to employee " + employeeName;
     }
 }

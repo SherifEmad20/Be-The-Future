@@ -1,7 +1,7 @@
 package com.example.BeTheFutureBackend.product;
 
-import com.example.BeTheFutureBackend.Customers.CustomerRepository;
-import com.example.BeTheFutureBackend.Customers.Customers;
+import com.example.BeTheFutureBackend.Users.User;
+import com.example.BeTheFutureBackend.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,26 +9,22 @@ import java.util.Optional;
 
 @Service
 public class ProductModel {
-    private final CustomerRepository customerRepository;
+    private final UserRepository customerRepository;
     private final ProductRepository productRepository;
 
     @Autowired
-    public ProductModel(CustomerRepository customerRepository, ProductRepository productRepository) {
+    public ProductModel(UserRepository customerRepository, ProductRepository productRepository) {
         this.customerRepository = customerRepository;
         this.productRepository = productRepository;
     }
 
-    public Product addProduct(Product product) {
-        return productRepository.save(product);
-    }
-
     // add proudct by customer
     public Boolean addProductByCustomerName(String customerName, Product product) {
-        Optional<Customers> customer = customerRepository.findById(customerName);
+        Optional<User> customer = customerRepository.findById(customerName);
         if (customer == null) {
             return false;
         } else {
-            Customers customer1 = customer.get();
+            User customer1 = customer.get();
             customer1.addProduct(product);
             customerRepository.save(customer1);
             product.setCustomer(customer1);
@@ -61,7 +57,7 @@ public class ProductModel {
     }
 
     public Iterable<Product> getProductBycustomerName(String customerName) {
-        Customers customer = customerRepository.findById(customerName).get();
+        User customer = customerRepository.findByUsername(customerName).get();
         return productRepository.findAllByCustomer(customer);
     }
 

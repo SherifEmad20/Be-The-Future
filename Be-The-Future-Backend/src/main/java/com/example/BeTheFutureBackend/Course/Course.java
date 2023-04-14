@@ -11,23 +11,22 @@ import jakarta.persistence.Table;
 public class Course {
 
     @Id
-    private String courseId;
-    private String courseName;
-    private int numberOfVotes = 0;
+    String courseId;
+    String courseName;
+    int numberOfVotes = 0;
 
-    private boolean isApproved = false;
+    boolean isApproved = false;
 
-    private int numberOfApproved = 0;
+    int numberOfApproved = 0;
 
-    private int numberOfDisapproved = 0;
+    int numberOfDisapproved = 0;
 
-    private String photo;
+    String photo;
 
     public Course() {
     }
 
-    public Course(String courseId, String courseName, int numberOfVotes, boolean isApproved, int numberOfApproved,
-                  int numberOfDisapproved, String photo) {
+    public Course(String courseId, String courseName, int numberOfVotes, boolean isApproved, int numberOfApproved, int numberOfDisapproved, String photo) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.numberOfVotes = numberOfVotes;
