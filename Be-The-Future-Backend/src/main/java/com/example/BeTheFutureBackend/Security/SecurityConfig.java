@@ -14,11 +14,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService UserDetailsService;
@@ -34,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().anyRequest().permitAll();
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+        //http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
     }
 
     @Bean
