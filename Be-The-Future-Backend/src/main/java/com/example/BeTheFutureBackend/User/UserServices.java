@@ -23,6 +23,7 @@ public class UserServices {
     CustomerModel customerModel;
     EmployeeModel employeeModel;
     ManagerModel managerModel;
+
     //Create a constructor to initialize the objects
     @Autowired
     public UserServices(AdminModel adminModel, CustomerModel customerModel, EmployeeModel employeeModel, ManagerModel managerModel) {
@@ -31,6 +32,7 @@ public class UserServices {
         this.employeeModel = employeeModel;
         this.managerModel = managerModel;
     }
+
     @PostMapping(path = "login")
     public ResponseEntity<?> logIn(@RequestBody User user) {
         if (user.getRole().equalsIgnoreCase("admin")) {
@@ -45,20 +47,23 @@ public class UserServices {
             return ResponseEntity.badRequest().body("User Type is not valid");
         }
     }
-
+    
     @PostMapping(path = "register")
     public ResponseEntity<?> register(@RequestBody User user) {
         if (user.getRole().equalsIgnoreCase("admin")) {
             Admin admin = new Admin(user.getUserName(), user.getPassword());
             return adminModel.register(admin);
         } else if (user.getRole().equalsIgnoreCase("customer")) {
-            Customers customer = new Customers(user.getUserName(), user.getFullName(),user.getEmail(),user.getPassword(),user.getPhoneNumber(),user.getAddress(),user.getCity(),user.getPhoto());
+            Customers customer = new Customers(user.getUserName(), user.getFullName(), user.getEmail(), user.getPassword()
+                    , user.getPhoneNumber(), user.getAddress(), user.getCity(), user.getPhoto());
             return customerModel.register(customer);
         } else if (user.getRole().equalsIgnoreCase("employee")) {
-            Employee employee = new Employee(user.getUserName(), user.getFullName(),user.getEmail(),user.getPassword(),user.getPhoneNumber());
+            Employee employee = new Employee(user.getUserName(), user.getFullName(), user.getEmail(), user.getPassword(),
+                    user.getPhoneNumber());
             return employeeModel.register(employee);
         } else if (user.getRole().equalsIgnoreCase("manager")) {
-            Manager manager = new Manager(user.getUserName(), user.getFullName(),user.getEmail(),user.getPassword(),user.getPhoneNumber());
+            Manager manager = new Manager(user.getUserName(), user.getFullName(), user.getEmail(), user.getPassword(),
+                    user.getPhoneNumber());
             return managerModel.register(manager);
         } else {
             return ResponseEntity.badRequest().body("User Type is not valid");
