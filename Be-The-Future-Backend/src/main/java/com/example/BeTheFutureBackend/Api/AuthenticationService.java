@@ -43,6 +43,7 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .message("success")
                 .build();
     }
 
@@ -63,6 +64,7 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .message("success")
                 .build();
     }
 
