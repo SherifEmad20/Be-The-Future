@@ -1,5 +1,6 @@
 package com.example.BeTheFutureBackend.Users;
 
+import com.example.BeTheFutureBackend.Company.Company;
 import com.example.BeTheFutureBackend.Role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
