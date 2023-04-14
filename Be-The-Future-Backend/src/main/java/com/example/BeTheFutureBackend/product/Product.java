@@ -1,12 +1,11 @@
 package com.example.BeTheFutureBackend.product;
 
-import com.example.BeTheFutureBackend.Customers.Customers;
 import com.example.BeTheFutureBackend.Task.Task;
+import com.example.BeTheFutureBackend.Users.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Table(name = "Product")
@@ -22,7 +21,7 @@ public class Product {
     private String state;
     @ManyToOne
     @JoinColumn(name = "CustomerName")
-    private Customers customer;
+    private User customer;
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
@@ -105,11 +104,11 @@ public class Product {
     }
 
 
-    public Customers getCustomer() {
+    public User getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customers customer) {
+    public void setCustomer(User customer) {
         this.customer = customer;
     }
 

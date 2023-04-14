@@ -22,7 +22,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         if (request.getRole() == null) {
-            request.setRole(Role.ROLE_USER);
+            request.setRole(Role.ROLE_CUSTOMER);
         }
         var user = User.builder()
                 .username(request.getUsername())

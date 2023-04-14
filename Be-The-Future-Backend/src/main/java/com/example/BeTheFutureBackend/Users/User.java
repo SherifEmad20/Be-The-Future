@@ -3,6 +3,8 @@ package com.example.BeTheFutureBackend.Users;
 import com.example.BeTheFutureBackend.Company.Company;
 import com.example.BeTheFutureBackend.Role.Role;
 import com.example.BeTheFutureBackend.Task.Task;
+import com.example.BeTheFutureBackend.product.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +43,10 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Task> taskList;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Product> productList;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -82,6 +88,10 @@ public class User implements UserDetails {
     //add task to employee
     public void addTask(Task task) {
         taskList.add(task);
+    }
+    //add product to customer
+    public void addProduct(Product product) {
+        productList.add(product);
     }
 
 
