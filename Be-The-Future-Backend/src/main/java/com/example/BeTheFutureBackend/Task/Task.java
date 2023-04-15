@@ -108,4 +108,11 @@ public class Task {
     public void setEmployee(User employee) {
         this.employee = employee;
     }
+
+    public void setEmployeeName(String employeeName) {
+    }
+
+    public String getEmployeeName() {
+        return employee.getUsername();
+    }
 }

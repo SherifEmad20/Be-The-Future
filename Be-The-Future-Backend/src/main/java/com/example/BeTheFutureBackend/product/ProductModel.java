@@ -62,4 +62,13 @@ public class ProductModel {
     }
 
 
+    public Product updateProductStatus(Long id) {
+        Product product = productRepository.findById(id).get();
+        if (product.getState().equals("in progress")) {
+            product.setState("done");
+        } else {
+            product.setState("in progress");
+        }
+        return productRepository.save(product);
+    }
 }

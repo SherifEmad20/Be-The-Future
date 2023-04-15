@@ -44,4 +44,8 @@ public class ProductController {
     public Product updateProduct(@RequestBody Product product) {
         return productModel.updateProduct(product);
     }
+    @PutMapping("/updateProductStatus/{id}")
+    public Product updateProductStatus(@PathVariable("id") Long id) {
+        return productModel.updateProductStatus(id);
+    }
 }

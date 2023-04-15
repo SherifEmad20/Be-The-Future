@@ -29,6 +29,13 @@ public class TaskController {
         return taskModel.addTask(task, productId);
     }
 
+    //addTaskToEmployee
+   @PutMapping("/add_taskToEmployee/{employeeName}")
+    public Boolean addTaskToEmployee(@RequestBody Task task, @PathVariable String employeeName) {
+        return taskModel.addTaskToEmployee(task, employeeName);
+    }
+
+
     @PutMapping("/doneTask/{taskName}")
     public Task doneTask(@PathVariable("taskName") String taskName) {
         return taskModel.doneTask(taskName);
