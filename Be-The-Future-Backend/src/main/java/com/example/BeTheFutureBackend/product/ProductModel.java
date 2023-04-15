@@ -26,9 +26,8 @@ public class ProductModel {
         } else {
             User customer1 = customer.get();
             customer1.addProduct(product);
-            customerRepository.save(customer1);
             product.setCustomer(customer1);
-            productRepository.save(product);
+            customerRepository.save(customer1);
             return true;
         }
 
