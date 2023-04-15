@@ -1,6 +1,7 @@
 package com.example.BeTheFutureBackend.Manager;
 
 import com.example.BeTheFutureBackend.Task.Task;
+import com.example.BeTheFutureBackend.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,23 +17,8 @@ public class MangerController {
         this.managerModel = managerModel;
     }
 
-    @PutMapping(path = "update")
-    public Manager updateManager(@RequestBody Manager manager) {
-        return managerModel.updateManager(manager);
-    }
-
-    @DeleteMapping(path = "delete/{userName}")
-    public void deleteManager(@PathVariable("userName") String userName) {
-        managerModel.deleteManager(userName);
-    }
-
-    @GetMapping(path = "get/{userName}")
-    public Manager getManager(@PathVariable("userName") String userName) {
-        return managerModel.getManager(userName).orElse(null);
-    }
-
     @GetMapping(path = "getManagers")
-    public Iterable<Manager> getAllManagers() {
+    public Iterable<User> getAllManagers() {
         return managerModel.getAllManagers();
     }
 

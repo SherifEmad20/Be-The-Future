@@ -1,6 +1,6 @@
 package com.example.BeTheFutureBackend.Task;
 
-import com.example.BeTheFutureBackend.Employee.Employee;
+import com.example.BeTheFutureBackend.Users.User;
 import com.example.BeTheFutureBackend.product.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -26,7 +26,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "EmployeeID")
     @JsonIgnore
-    private Employee employee;
+    private User employee;
     private boolean done;
 
     public Task() {
@@ -101,11 +101,11 @@ public class Task {
         this.product = product;
     }
 
-    public Employee getEmployee() {
+    public User getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setEmployee(User employee) {
         this.employee = employee;
     }
 }

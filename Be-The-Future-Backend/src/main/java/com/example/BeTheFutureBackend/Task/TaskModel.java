@@ -1,12 +1,10 @@
 package com.example.BeTheFutureBackend.Task;
 
-import com.example.BeTheFutureBackend.Customers.Customers;
 import com.example.BeTheFutureBackend.product.Product;
 import com.example.BeTheFutureBackend.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

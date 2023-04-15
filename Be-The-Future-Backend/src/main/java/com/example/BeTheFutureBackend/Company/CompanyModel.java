@@ -1,15 +1,15 @@
 package com.example.BeTheFutureBackend.Company;
 
-import com.example.BeTheFutureBackend.Manager.ManagerRepository;
+import com.example.BeTheFutureBackend.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CompanyModel {
-    private final ManagerRepository managerRepository;
+    private final UserRepository managerRepository;
     private final CompanyRepository companyRepository;
     @Autowired
-    public CompanyModel(ManagerRepository managerRepository, CompanyRepository companyRepository) {
+    public CompanyModel(UserRepository managerRepository, CompanyRepository companyRepository) {
         this.managerRepository = managerRepository;
         this.companyRepository = companyRepository;
     }

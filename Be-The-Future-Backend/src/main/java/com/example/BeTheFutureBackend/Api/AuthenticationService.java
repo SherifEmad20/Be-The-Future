@@ -11,8 +11,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @Service
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AuthenticationService {
 
     private final UserRepository userRepository;
@@ -23,6 +26,7 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) {
         if (request.getRole() == null) {
             request.setRole(Role.ROLE_USER);
+            request.setRole(Role.ROLE_CUSTOMER);
         }
         var user = User.builder()
                 .username(request.getUsername())
@@ -43,6 +47,7 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .message("success")
                 .build();
     }
 
@@ -63,6 +68,8 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .message("success")
                 .build();
     }
 }
+

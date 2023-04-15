@@ -1,5 +1,6 @@
 package com.example.BeTheFutureBackend.Customers;
 
+import com.example.BeTheFutureBackend.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,22 +17,8 @@ public class CustomerController {
     }
 
     @GetMapping("/getAllCustomers")
-    public Iterable<Customers> getAllCustomers() {
+    public Iterable<User> getAllCustomers() {
         return customerModel.getAllCustomers();
     }
 
-    @GetMapping("/getCustomerById/{id}")
-    public Customers getCustomerById(@PathVariable("id") String CustomerName) {
-        return customerModel.getCustomer(CustomerName);
-    }
-
-    @DeleteMapping("/deleteCustomer/{id}")
-    public void deleteCustomer(@PathVariable("id") String CustomerName) {
-        customerModel.deleteCustomer(CustomerName);
-    }
-
-    @PutMapping("/updateCustomer")
-    public Customers updateCustomer(@RequestBody Customers customers) {
-        return customerModel.updateCustomer(customers);
-    }
 }
