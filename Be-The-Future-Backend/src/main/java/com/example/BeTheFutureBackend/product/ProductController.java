@@ -50,4 +50,10 @@ public class ProductController {
         return productModel.updateProductState(id);
 
     }
+
+    @PutMapping("/updateProductStatus/{id}")
+    public Product updateProductStatus(@PathVariable("id") Long id) {
+        return productModel.updateProductStatus(id);
+
+    }
 }
