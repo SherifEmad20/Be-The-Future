@@ -24,8 +24,17 @@ public class UserModel {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User updateUser(User user) {
-        return userRepository.save(user);
+
+    public User updateUser(User user){
+        //find user
+        User user1 = userRepository.findById(user.getUsername()).orElse(null);
+        user1.setFirstName(user.getFirstName());
+        user1.setLastName(user.getLastName());
+        user1.setEmail(user.getEmail());
+        user1.setAddress(user.getAddress());
+        user1.setCity(user.getCity());
+        user1.setPhoneNumber(user.getPhoneNumber());
+        return userRepository.save(user1);
     }
 
     public void deleteUser(String id) {
