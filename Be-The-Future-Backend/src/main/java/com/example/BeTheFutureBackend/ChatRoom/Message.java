@@ -3,21 +3,17 @@ package com.example.BeTheFutureBackend.ChatRoom;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @ToString
 public class Message {
-    private String sender;
-    private String receiver;
-    private String content;
-    private String timestamp;
-
-    @Enumerated(EnumType.STRING)
+    private String senderName;
+    private String receiverName;
+    private String message;
+    private String date;
     private Status status;
 }
