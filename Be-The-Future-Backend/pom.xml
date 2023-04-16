@@ -80,10 +80,10 @@
         <!--chat room dependencies-->
 
         <!--kafka-->
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.kafka</groupId>-->
+<!--            <artifactId>spring-kafka</artifactId>-->
+<!--        </dependency>-->
 
         <!--spring web-->
         <dependency>
@@ -92,11 +92,11 @@
         </dependency>
 
         <!--zookeeper-->
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <version>3.8.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.zookeeper</groupId>-->
+<!--            <artifactId>zookeeper</artifactId>-->
+<!--            <version>3.8.1</version>-->
+<!--        </dependency>-->
         <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
 

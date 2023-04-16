@@ -1,49 +1,31 @@
 package com.example.BeTheFutureBackend.ChatRoom;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ChatController {
 
     @Autowired
-    private KafkaTemplate<String, Message> kafkaTemplate;
+    private SimpMessagingTemplate simpMessagingTemplate;
 
-    @PostMapping(value = "/api/send", consumes = "application/json", produces = "application/json")
-    public void sendMessage(@RequestBody Message message) {
-        message.setTimestamp(LocalDateTime.now().toString());
-        try {
-            //Sending the message to kafka topic queue
-            kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC, message).get();
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    //    -------------- WebSocket API ----------------
-    @MessageMapping("/sendMessage")
-    @SendTo("/topic/group")
-    public Message broadcastGroupMessage(@Payload Message message) {
-        //Sending this message to all the subscribers
+    // send message to public chatroom to all users
+    @MessageMapping("/message")
+    @SendTo("/chatroom/public")
+    public Message receiveMessage(@Payload Message message) {
         return message;
     }
 
-    @MessageMapping("/newUser")
-    @SendTo("/topic/group")
-    public Message addUser(@Payload Message message,
-                           SimpMessageHeaderAccessor headerAccessor) {
-        // Add user in web socket session
-        headerAccessor.getSessionAttributes().put("username", message.getSender());
+    @MessageMapping("/private-message")
+    public Message receivePrivateMessage(@Payload Message message) {
+        simpMessagingTemplate.convertAndSend("/private" + message.getReceiver(), message); // /user/username/private
         return message;
     }
+
 
 }
