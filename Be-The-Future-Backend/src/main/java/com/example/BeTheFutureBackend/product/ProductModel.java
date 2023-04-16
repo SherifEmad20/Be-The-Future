@@ -24,6 +24,7 @@ public class ProductModel {
         if (customer == null) {
             return false;
         } else {
+            product.setState("Pending");
             User customer1 = customer.get();
             customer1.addProduct(product);
             product.setCustomer(customer1);
@@ -59,6 +60,20 @@ public class ProductModel {
         User customer = customerRepository.findByUsername(customerName).get();
         return productRepository.findAllByCustomer(customer);
     }
+    //update product state to inprogress
+    public Product updateProductState(Long id) {
+        Product product = productRepository.findById(id).get();
+        product.setState("InProgress");
+        return productRepository.save(product);
+    }
 
-
+    public Product updateProductStatus(Long id) {
+        Product product = productRepository.findById(id).get();
+        if (product.getState().equals("in progress")) {
+            product.setState("done");
+        } else {
+            product.setState("in progress");
+        }
+        return productRepository.save(product);
+    }
 }

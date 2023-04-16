@@ -44,4 +44,16 @@ public class ProductController {
     public Product updateProduct(@RequestBody Product product) {
         return productModel.updateProduct(product);
     }
+    //update product state to inprogress
+    @PutMapping("/acceptProduct/{id}")
+    public Product updateProductState(@PathVariable("id") Long id) {
+        return productModel.updateProductState(id);
+
+    }
+
+    @PutMapping("/updateProductStatus/{id}")
+    public Product updateProductStatus(@PathVariable("id") Long id) {
+        return productModel.updateProductStatus(id);
+
+    }
 }

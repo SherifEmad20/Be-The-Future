@@ -58,4 +58,16 @@ public class TaskModel {
     public Task getTask(Long id) {
         return taskRepository.findById(id).get();
     }
+
+
+    public Boolean addTaskToEmployee(Task task, String employeeName) {
+        Task task1 = taskRepository.findByTaskName(task.getTaskName());
+        if (task1 == null) {
+            return false;
+        } else {
+            task1.setEmployeeName(employeeName);
+            taskRepository.save(task1);
+            return true;
+        }
+    }
 }

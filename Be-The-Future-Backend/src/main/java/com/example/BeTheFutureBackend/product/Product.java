@@ -33,13 +33,13 @@ public class Product {
 
 
     public Product(String productName, String description, double price, String photo, String deadline,
-                   String state, List<Task> taskList) {
+                    List<Task> taskList) {
         this.productName = productName;
         this.description = description;
         this.price = price;
         this.photo = photo;
         this.deadline = deadline;
-        this.state = state;
+        this.state = "Pending";
         this.taskList = taskList;
     }
 
@@ -119,7 +119,6 @@ public class Product {
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
-
 
 }
 
