@@ -18,8 +18,13 @@ public class TaskModel {
         this.taskRepository = taskRepository;
     }
 
-    public Iterable<Task> getAllTasks(Long productId) {
+    public Iterable<Task> getAllTasksByProduct(Long productId) {
         return taskRepository.findAllByProductId(productId);
+    }
+
+    // get all tasks
+    public Iterable<Task> getAllTasks() {
+        return taskRepository.findAll();
     }
 
     public Task getTaskByTaskName(String taskName) {

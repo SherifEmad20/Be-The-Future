@@ -20,14 +20,20 @@ public class TaskController {
     }
 
     @GetMapping("/getAllTasks/{productId}")
-    public Iterable<Task> getAllTasks(@PathVariable Long productId) {
-        return taskModel.getAllTasks(productId);
+    public Iterable<Task> getAllTasksByProduct(@PathVariable Long productId) {
+        return taskModel.getAllTasksByProduct(productId);
     }
 
     @PostMapping("/add_task/{productName}")
     public Boolean addTask(@RequestBody Task task, @PathVariable String productName) {
         return taskModel.addTask(task, productName);
     }
+
+    @GetMapping("/getAllTasks")
+    public Iterable<Task> getAllTasks() {
+        return taskModel.getAllTasks();
+    }
+
 
     //addTaskToEmployee
    @PutMapping("/add_taskToEmployee/{employeeName}")
