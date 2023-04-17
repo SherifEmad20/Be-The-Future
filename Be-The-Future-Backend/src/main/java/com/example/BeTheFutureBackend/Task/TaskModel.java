@@ -27,8 +27,8 @@ public class TaskModel {
     }
 
 
-    public Boolean addTask(Task task, Long productId) {
-        Optional<Product> product = productRepository.findById(productId);
+    public Boolean addTask(Task task, String productName) {
+        Optional<Product> product = productRepository.findByProductName(productName);
         if (product == null) {
             return false;
         } else {

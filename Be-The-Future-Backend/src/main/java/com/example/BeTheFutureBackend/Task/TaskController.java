@@ -24,9 +24,9 @@ public class TaskController {
         return taskModel.getAllTasks(productId);
     }
 
-    @PostMapping("/add_task/{productId}")
-    public Boolean addTask(@RequestBody Task task, @PathVariable Long productId) {
-        return taskModel.addTask(task, productId);
+    @PostMapping("/add_task/{productName}")
+    public Boolean addTask(@RequestBody Task task, @PathVariable String productName) {
+        return taskModel.addTask(task, productName);
     }
 
     //addTaskToEmployee
