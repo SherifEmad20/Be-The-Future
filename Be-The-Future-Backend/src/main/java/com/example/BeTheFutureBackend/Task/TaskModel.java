@@ -31,7 +31,6 @@ public class TaskModel {
         return taskRepository.findByTaskName(taskName);
     }
 
-
     public Boolean addTask(Task task, String productName) {
         Optional<Product> product = productRepository.findByProductName(productName);
         if (product == null) {
@@ -44,8 +43,6 @@ public class TaskModel {
             taskRepository.save(task);
             return true;
         }
-
-
     }
 
     public Task doneTask(String taskName) {
@@ -62,6 +59,11 @@ public class TaskModel {
 
     public Task getTask(Long id) {
         return taskRepository.findById(id).get();
+    }
+
+
+    public Iterable<Task> getTaskByEmployeeName(String employeeName) {
+        return taskRepository.findAllByEmployeeName(employeeName);
     }
 
 

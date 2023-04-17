@@ -35,6 +35,13 @@ public class TaskController {
     }
 
 
+    // get task by employee name
+    @GetMapping("/getTaskByEmployeeName/{employeeName}")
+    public Iterable<Task> getTaskByEmployeeName(@PathVariable("employeeName") String employeeName) {
+        return taskModel.getTaskByEmployeeName(employeeName);
+    }
+
+
     //addTaskToEmployee
    @PutMapping("/add_taskToEmployee/{employeeName}")
     public Boolean addTaskToEmployee(@RequestBody Task task, @PathVariable String employeeName) {
