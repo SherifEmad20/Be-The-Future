@@ -37,6 +37,8 @@ public class User implements UserDetails {
     private String city;
     private String photo;
 
+    private float salaryOverWork;
+
     @ManyToOne//many managers can belong to one company
     @JoinColumn(name = "company_id")
     private Company company;
@@ -85,15 +87,15 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
     //add task to employee
     public void addTask(Task task) {
         taskList.add(task);
     }
+
     //add product to customer
     public void addProduct(Product product) {
         productList.add(product);
     }
-
-
 
 }

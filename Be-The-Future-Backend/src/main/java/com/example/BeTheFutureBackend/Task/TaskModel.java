@@ -81,6 +81,7 @@ public class TaskModel {
         }
         return tasks;
     }
+
     public Task inProgressTask(String taskName) {
         Task task = taskRepository.findByTaskName(taskName);
         task.setDone(false);
@@ -95,7 +96,7 @@ public class TaskModel {
     public Iterable<Task> getTaskByEmployeeName(String employeeName) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (Task task : taskRepository.findAll()) {
-            if (task.getEmployeeName().equals(employeeName) && !task.isDone() && !task.getDropped()){
+            if (task.getEmployeeName().equals(employeeName) && !task.isDone() && !task.getDropped()) {
                 tasks.add(task);
             }
         }
@@ -113,7 +114,6 @@ public class TaskModel {
         return tasks;
     }
 
-
     public Boolean addTaskToEmployee(Task task, String employeeName) {
         Task task1 = taskRepository.findByTaskName(task.getTaskName());
         if (task1 == null) {
@@ -124,5 +124,4 @@ public class TaskModel {
             return true;
         }
     }
-
 }
