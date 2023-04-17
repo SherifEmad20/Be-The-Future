@@ -1,7 +1,11 @@
 package com.example.BeTheFutureBackend.Users;
 
+import com.example.BeTheFutureBackend.Role.Role;
+import com.example.BeTheFutureBackend.Task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class UserModel {
@@ -25,6 +29,18 @@ public class UserModel {
     }
 
 
+    // get all users with role employee
+    public Iterable<User> getAllEmployees() {
+        Iterable<User> users=userRepository.findAll();
+        ArrayList<User> employees=new ArrayList<>();
+        for (User user:users) {
+            if(user.getRole().equals((Role.ROLE_EMPLOYEE))){
+                employees.add(user);
+            }
+        }
+
+        return employees;
+    }
     public User updateUser(User user){
         //find user
         User user1 = userRepository.findById(user.getUsername()).orElse(null);
