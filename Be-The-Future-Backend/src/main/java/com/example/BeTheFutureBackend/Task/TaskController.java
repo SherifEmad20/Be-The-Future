@@ -24,6 +24,11 @@ public class TaskController {
         return taskModel.getAllTasksByProduct(productId);
     }
 
+    @GetMapping("/getAllDoneTasks")
+    public Iterable<Task> getAllDoneTasks() {
+        return taskModel.getAllDoneTasks();
+    }
+
     @PostMapping("/add_task/{productName}/{employeeName}")
     public Boolean addTask(@RequestBody Task task, @PathVariable String productName, @PathVariable String employeeName) {
         return taskModel.addTask(task, productName, employeeName);
@@ -48,6 +53,11 @@ public class TaskController {
         return taskModel.addTaskToEmployee(task, employeeName);
     }
 
+    @GetMapping("/getAllDroppedTasks")
+    public Iterable<Task> getAllDroppedTasks() {
+        return taskModel.getAllDroppedTasks();
+    }
+
 
     @PutMapping("/doneTask/{taskName}")
     public Task doneTask(@PathVariable("taskName") String taskName) {
@@ -57,5 +67,11 @@ public class TaskController {
     @PutMapping("/inProgressTask/{taskName}")
     public Task inProgressTask(@PathVariable("taskName") String taskName) {
         return taskModel.inProgressTask(taskName);
+    }
+
+
+    @PutMapping("/droppedTask/{taskName}")
+    public Task droppedTask(@PathVariable("taskName") String taskName) {
+        return taskModel.droppedTask(taskName);
     }
 }

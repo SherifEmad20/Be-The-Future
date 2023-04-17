@@ -65,6 +65,22 @@ public class TaskModel {
         return taskRepository.save(task);
     }
 
+    public Task droppedTask(String taskName) {
+        Task task = taskRepository.findByTaskName(taskName);
+        task.setDropped(true);
+        return taskRepository.save(task);
+    }
+
+
+    public Iterable<Task> getAllDoneTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Task task : taskRepository.findAll()) {
+            if (task.isDone()) {
+                tasks.add(task);
+            }
+        }
+        return tasks;
+    }
     public Task inProgressTask(String taskName) {
         Task task = taskRepository.findByTaskName(taskName);
         task.setDone(false);
@@ -79,11 +95,21 @@ public class TaskModel {
     public Iterable<Task> getTaskByEmployeeName(String employeeName) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (Task task : taskRepository.findAll()) {
-            if (task.getEmployeeName().equals(employeeName)) {
+            if (task.getEmployeeName().equals(employeeName) && !task.isDone() && !task.getDropped()){
                 tasks.add(task);
             }
         }
 
+        return tasks;
+    }
+
+    public Iterable<Task> getAllDroppedTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Task task : taskRepository.findAll()) {
+            if (task.getDropped()) {
+                tasks.add(task);
+            }
+        }
         return tasks;
     }
 
@@ -98,4 +124,5 @@ public class TaskModel {
             return true;
         }
     }
+
 }
