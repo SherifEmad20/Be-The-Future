@@ -5,6 +5,7 @@ import com.example.BeTheFutureBackend.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -63,7 +64,14 @@ public class TaskModel {
 
 
     public Iterable<Task> getTaskByEmployeeName(String employeeName) {
-        return taskRepository.findAllByEmployeeName(employeeName);
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Task task : taskRepository.findAll()) {
+            if (task.getEmployeeName().equals(employeeName)) {
+                tasks.add(task);
+            }
+        }
+
+        return tasks;
     }
 
 
