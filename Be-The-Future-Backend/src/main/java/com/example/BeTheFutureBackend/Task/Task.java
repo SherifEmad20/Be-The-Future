@@ -28,9 +28,6 @@ public class Task {
     @JsonIgnore
     private User employee;
 
-
-
-
     private boolean done;
 
     public Task() {

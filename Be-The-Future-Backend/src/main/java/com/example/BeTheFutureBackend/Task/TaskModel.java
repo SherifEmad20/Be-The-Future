@@ -1,5 +1,7 @@
 package com.example.BeTheFutureBackend.Task;
 
+import com.example.BeTheFutureBackend.Users.User;
+import com.example.BeTheFutureBackend.Users.UserRepository;
 import com.example.BeTheFutureBackend.product.Product;
 import com.example.BeTheFutureBackend.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,13 @@ public class TaskModel {
     private final TaskRepository taskRepository;
     private final ProductRepository productRepository;
 
+    private final UserRepository userRepository;
+
     @Autowired
-    public TaskModel(TaskRepository taskRepository, ProductRepository productRepository) {
+    public TaskModel(TaskRepository taskRepository, ProductRepository productRepository, UserRepository userRepository) {
         this.productRepository = productRepository;
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
     }
 
     public Iterable<Task> getAllTasksByProduct(Long productId) {
@@ -38,7 +43,14 @@ public class TaskModel {
             return false;
         } else {
             Product product1 = product.get();
-            task.setEmployeeName(employeeName);
+            User user = new User();
+
+            for (User user1 : userRepository.findAll()) {
+                if (user1.getUsername().equals(employeeName)) {
+                    user = user1;
+                }
+            }
+            task.setEmployee(user);
             product1.addTask(task);
             productRepository.save(product1);
             task.setProduct(product1);
