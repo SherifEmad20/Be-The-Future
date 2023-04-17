@@ -27,6 +27,10 @@ public class Task {
     @JoinColumn(name = "EmployeeID")
     @JsonIgnore
     private User employee;
+
+
+
+
     private boolean done;
 
     public Task() {
@@ -37,7 +41,6 @@ public class Task {
         this.taskDescription = taskDescription;
         this.taskStartDate = taskStartDate;
         this.taskDeadline = taskDeadline;
-
         this.done = done;
     }
 
@@ -115,4 +118,7 @@ public class Task {
     public String getEmployeeName() {
         return employee.getUsername();
     }
+
+
+
 }

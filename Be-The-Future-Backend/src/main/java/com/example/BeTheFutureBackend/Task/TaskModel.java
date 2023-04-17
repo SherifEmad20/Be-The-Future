@@ -32,12 +32,13 @@ public class TaskModel {
         return taskRepository.findByTaskName(taskName);
     }
 
-    public Boolean addTask(Task task, String productName) {
+    public Boolean addTask(Task task, String productName, String employeeName) {
         Optional<Product> product = productRepository.findByProductName(productName);
         if (product == null) {
             return false;
         } else {
             Product product1 = product.get();
+            task.setEmployeeName(employeeName);
             product1.addTask(task);
             productRepository.save(product1);
             task.setProduct(product1);
