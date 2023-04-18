@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         // Add the Access-Control-Allow-Origin header to the response
-        response.setHeader("Access-Control-Allow-Origin", "http://ai-era.herokuapp.com");
+        response.setHeader("Access-Control-Allow-Origin", "https://ai-era.herokuapp.com");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         // Get the token from the request header
         final String authorizationHeader = request.getHeader("Authorization");
@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        // Extract the token from the header aftea the word "Bearer "
+        // Extract the token from the header after the word "Bearer "
         token = authorizationHeader.substring(7);
         username = jwtService.extractUsername(token);
         // CHECK IF USER IS AUTHENTICATED
