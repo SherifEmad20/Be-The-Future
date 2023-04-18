@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/user")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class UserController {
     private final UserModel userModel;
