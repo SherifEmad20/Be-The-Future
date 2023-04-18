@@ -2,6 +2,7 @@ package com.example.BeTheFutureBackend.Users;
 
 import com.example.BeTheFutureBackend.Role.Role;
 import com.example.BeTheFutureBackend.Task.Task;
+import com.example.BeTheFutureBackend.Task.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,12 @@ import java.util.Optional;
 @Service
 public class UserModel {
     private final UserRepository userRepository;
+    private final TaskRepository taskRepository;
 
     @Autowired
-    public UserModel(UserRepository userRepository) {
+    public UserModel(UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
     }
 
     public User addUser(User user) {
@@ -59,14 +62,17 @@ public class UserModel {
         userRepository.deleteById(id);
     }
 
-    public User overWork(String username) {
+    public boolean overWork(String username, Long taskId) {
+        Task task = taskRepository.findById(taskId).orElse(null);
         User user = userRepository.findById(username).orElse(null);
-        if (user == null) {
-            return null;
+        if (user == null || task == null) {
+            return false;
         }
         user.setSalaryOverWork(user.getSalaryOverWork() + 50);
+        task.setDone(true);
+        taskRepository.save(task);
         userRepository.save(user);
-        return user;
+        return true;
     }
 
 }

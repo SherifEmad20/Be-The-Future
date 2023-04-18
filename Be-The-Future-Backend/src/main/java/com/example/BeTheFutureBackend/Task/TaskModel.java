@@ -14,7 +14,6 @@ import java.util.Optional;
 public class TaskModel {
     private final TaskRepository taskRepository;
     private final ProductRepository productRepository;
-
     private final UserRepository userRepository;
 
     @Autowired
@@ -105,9 +104,10 @@ public class TaskModel {
     }
 
     public Iterable<Task> getAllDroppedTasks() {
+
         ArrayList<Task> tasks = new ArrayList<>();
         for (Task task : taskRepository.findAll()) {
-            if (task.getDropped()) {
+            if (task.getDropped() && !task.isDone()) {
                 tasks.add(task);
             }
         }

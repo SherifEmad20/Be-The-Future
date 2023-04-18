@@ -17,7 +17,8 @@ public class Task {
     private String taskDescription;
     private String taskStartDate;
     private String taskDeadline;
-    private boolean dropped =false;
+    private boolean dropped = false;
+
 
     @ManyToOne
     @JoinColumn(name = "ProductID")
@@ -29,7 +30,7 @@ public class Task {
     @JsonIgnore
     private User employee;
 
-    private boolean done;
+    private boolean done = false;
 
     public boolean getDropped() {
         return dropped;
@@ -42,7 +43,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(String taskName, String taskDescription, String taskStartDate, String taskDeadline, boolean done , boolean dropped) {
+    public Task(String taskName, String taskDescription, String taskStartDate, String taskDeadline, boolean done, boolean dropped) {
         this.dropped = dropped;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
@@ -125,7 +126,6 @@ public class Task {
     public String getEmployeeName() {
         return employee.getUsername();
     }
-
 
 
 }

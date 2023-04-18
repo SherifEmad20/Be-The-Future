@@ -38,9 +38,9 @@ public class UserController {
         return userModel.getAllEmployees();
     }
 
-    @PutMapping(path = "/overWork/{username}")
-    public User overWork(@PathVariable("username") String username) {
-        return userModel.overWork(username);
+    @PutMapping(path = "/overWork/{username}/{taskId}")
+    public boolean overWork(@PathVariable("username") String username, @PathVariable("taskId") Long taskId) {
+        return userModel.overWork(username, taskId);
     }
 
 }
