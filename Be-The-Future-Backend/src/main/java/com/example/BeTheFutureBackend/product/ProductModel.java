@@ -31,7 +31,6 @@ public class ProductModel {
             customerRepository.save(customer1);
             return true;
         }
-
     }
 
     public Iterable<Product> getAllProducts() {
